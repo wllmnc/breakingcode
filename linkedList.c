@@ -8,20 +8,45 @@ void print_list(node_t * head);
 void push(node_t * head, int val);
 int pop(node_t ** head);
 int remove_last(node_t * head);
+int remove_index(int index, node_t ** head);
 
 void main(){
 
 	node_t * head = NULL;
 	head = malloc(sizeof(node_t));
-
+        remove_index(5,&head);
 	head->val =0; 
 	head->next = NULL;
+        remove_index(5,&head);
 	int i=1;
 	for(i;i<10;i++){
 		push(head,i);
 		print_list(head); 
-		}   
+		}
+	remove_index(5,&head);
+ 	print_list(head);
     }
+int remove_index(int index, node_t ** head)
+{
+	int count=1;
+	int retval=-1;
+	node_t * current = *head;
+        node_t * tempN   =  NULL;
+
+	while (current->next != NULL && count<index-1) {
+		current = current->next;
+		count++;
+	}
+
+        if(count==index-1)
+	{
+		retval = current->val;
+                tempN  = current->next;
+		current->next = tempN->next;
+		free(tempN);
+	}
+	return retval;
+}
 int remove_last(node_t * head) {
     int retval = 0;
     /* if there is only one item in the list, remove it */

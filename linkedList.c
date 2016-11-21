@@ -9,6 +9,7 @@ void push(node_t * head, int val);
 int pop(node_t ** head);
 int remove_last(node_t * head);
 int remove_index(int index, node_t ** head);
+int remove_byValue(node_t ** head,int val);
 
 void main(){
 
@@ -24,6 +25,7 @@ void main(){
 		print_list(head); 
 		}
 	remove_index(5,&head);
+	remove_byValue(&head,2);
  	print_list(head);
     }
 int remove_index(int index, node_t ** head)
@@ -102,4 +104,20 @@ void print_list(node_t * head) {
         current = current->next;
     }
 printf("\n");
+}
+int remove_byValue(node_t ** head,int val) {
+	node_t * current = *head;
+	node_t * prev   = NULL;
+	int retval=-1;
+	while (current != NULL) {        
+        	if(val==current->val){
+			retval=val;
+			prev->next=current->next;
+			free(current);		
+			break;
+		}
+		prev=current;
+	        current = current->next;
+	}
+	return retval;
 }
